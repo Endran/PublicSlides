@@ -1,0 +1,87 @@
+https://medium.com/google-developers/developing-for-android-introduction-5345b451567c#.ctaf0zo09
+Developing for Android: Introduction
+
+- Different constraints
+	- Small screens
+	- Battery powered
+	- CPU/GPU power 
+		- High end mobile CPU is slower then average desktop CPU
+		- Thotteling due to battery life and overheating
+	- Demanding users
+	- Memory (512MB)
+		- Android can kill you if it want (and you are not in the foreground)
+		- Tries to keep non running apps in memory, to enable fast switching, but large mem process intefer with this.
+		- When you use to much mem, other (well behaving) apps get slow, due to Android needing to free resources for you.
+		- Prevent allocations. Cache expensice objects and reuse.
+			- When in intense loops, mutate objects `pulbic makePoint(x,y)` vs `public mutatePoint(x,y,points)` 
+		- GC (GC_FOR_ALLOC)
+		- Mem trim callback just before android starts killing for mem
+		- isLowRamDevice
+	- Storage
+		- 8GB of space (inlcuding the OS)
+		- 4GB of removable storage (which is slow)
+		- Large apps get unistalled or cause difference in users behaviour
+
+
+	avoid doing things when you don’t need to.
+
+Runtime
+	- Dalvik is a Just-in-Time (JIT) compiler
+	- ART is an Ahead-of-Time (AOT) compiler (Android Run Time)
+	- Neither of these runtimes offer the level of optimizations that are common to server and desktop runtime platforms, such as method-inlining and escape analysis
+	- ART has dynamic heap (will resort when in background)
+
+- Multithreaded
+	- Everything that happens with the UI happens on 1 thread (Main/UI - thread). Scrolling, clicking, updating text)
+	- Network acces MUST be in another thread.
+	- Disk access is also slow
+
+Connectivity
+	- Often you are offline. 4G and wifi are not globally available.
+	- Databundles is often limited
+	- Use of radio is battery power expensive. Oversyncing can cause a device to drain.
+
+Patterns
+	- MVP
+	- Rx
+	- Eventbus
+
+Your app is NOT the most important app on the user's phone. Be a good citicen, know your place. Server application often are the most importatn app. Often even the only app. Entire machine might be bought just to run your app. On mobile you share the pool of resources. If you take just a little too much, and your neighbours as well, then there isn't enough to go around and some of you get killed off. (Tragedy of the commons, everybody acts in the own best interest, hurting the common goal)
+
+
+http://www.nu.nl/mobiel/4345211/android-88-procent-van-wereldwijd-verkochte-smartphones.html
+Most devices are low end devices. Software developers on average hav mid to high end devices.
+
+
+Reflection is evil
+Source open to the public
+Jodatime
+sub-16 millisecond (ms) frame times -> 60 fps
+
+
+They are using the lamguage they are used to in a completly different eco system
+
+
+Sync as much as possible
+Keep everyting in mem
+Cache cache
+
+
+
+App vs website
+App vs webapp
+
+Progaurd for code size (and obfuscation)
+
+MEMORY IS KEY
+Context leak
+
+Process lifecycle is longer the application lifecycle
+Statics survive applications lifecycles
+
+Be aware of 3th party code. 
+Libs used in the past for server are not written with mobile constraints. Use mobile friendly libs (for me this ment I had to leave my mobile friendly libs to make use of server libs)
+
+Android Studio
+Spring Dependencies Injection = Dagger
+Spring Lifecycle = Android
